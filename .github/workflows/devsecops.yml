@@ -7,28 +7,24 @@ jobs:
     name: Run Bandit Scan
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        python-version: [3.11]  # Or any version you prefer
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
       
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ matrix.python-version }}
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
         
-      - name: Install Bandit
-        run: pip install bandit
+    - name: Install Bandit
+      run: pip install Bandit
       
-      - name: Run Bandit Scan
-        run: bandit -ll -ii -r . -f json -o bandit-report.json
+    - name: Run Bandit Scan
+      run: bandit -ll -ii -r . -f json -o bandit-report.json
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3.1.3  # Proper indentation here
-        if: always()
-        with:
-          name: bandit-findings
-          path: bandit-report.json
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3.1.3
+      if: always()
+      with:
+         name: bandit-findings
+         path: bandit-report.json
