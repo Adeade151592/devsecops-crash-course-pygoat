@@ -33,39 +33,4 @@ jobs:
           name: bandit-findings
           path: bandit-report.json
 
-  image_scan:
-    name: Build Image and Run Docker Scout Scan
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Docker
-        uses: docker-practice/actions-setup-docker@v1
-        with:
-          docker_version: '28.1.1'  # Docker version, not Ubuntu version
-
-      - name: Check Docker systemd status
-        run: systemctl status docker
-        continue-on-error: true
-
-      - name: Check Docker version
-        run: docker version
-
-      - name: Show Docker daemon config if exists
-        run: |
-          if [ -f /etc/docker/daemon.json ]; then
-            sudo cat /etc/docker/daemon.json
-          else
-            echo "/etc/docker/daemon.json does not exist"
-          fi
-
-      - name: Build Docker Image
-        run: docker build -f Dockerfile -t myapp:latest .
-
-      - name: Install and Run Docker Scout
-        run: |
-          curl -fsSl https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
-          sh install-scout.sh
-          docker scout quickview
+  
