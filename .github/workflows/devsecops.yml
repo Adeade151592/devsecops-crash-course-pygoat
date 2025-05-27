@@ -44,7 +44,7 @@ jobs:
       - name: Set up Docker
         uses: docker-practice/actions-setup-docker@v1
         with:
-          docker_version: '28.1.1'
+          docker_version: '24.04'
 
       - name: Check Docker systemd status
         run: systemctl status docker
