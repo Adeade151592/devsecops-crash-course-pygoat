@@ -44,7 +44,7 @@ jobs:
       - name: Set up Docker
         uses: docker-practice/actions-setup-docker@v1
         with:
-          docker_version: '28.1.1'  # Docker version, not Ubuntu version
+          docker_version: '20.10.7'  # Docker version, not Ubuntu version
 
       - name: Check Docker systemd status
         run: systemctl status docker
