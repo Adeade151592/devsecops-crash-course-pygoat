@@ -7,6 +7,10 @@ jobs:
     name: Run Bandit Scan
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        python-version: [3.11]  # Or any version you prefer
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
