@@ -56,7 +56,7 @@ jobs:
       - name: Show Docker daemon config if exists
         run: |
           if [ -f /etc/docker/daemon.json ]; then
-            sudo cat /etc/docker/daemon.json
+            cat /etc/docker/daemon.json
           else
             echo "/etc/docker/daemon.json does not exist"
           fi
