@@ -27,7 +27,7 @@ jobs:
         run: bandit -ll -ii -r . -f json -o bandit-report.json
 
       - name: Upload Bandit Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.6.2
         if: always()
         with:
           name: bandit-findings
@@ -44,7 +44,7 @@ jobs:
       - name: Set up Docker
         uses: docker-practice/actions-setup-docker@v1
         with:
-          docker_version: '20.10.7'  # Docker version, not Ubuntu version
+          docker_version: '28.1.1' 
 
       - name: Check Docker systemd status
         run: systemctl status docker
