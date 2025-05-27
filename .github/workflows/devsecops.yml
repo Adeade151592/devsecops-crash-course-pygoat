@@ -7,22 +7,26 @@ jobs:
     name: Run Bandit Scan
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        python-version: [3.11]  # You must define this for matrix usage
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
-        
+
       - name: Install Bandit
         run: pip install bandit
-      
+
       - name: Run Bandit Scan
         run: bandit -ll -ii -r . -f json -o bandit-report.json
 
-      - name: Upload Artifact
+      - name: Upload Bandit Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -30,22 +34,22 @@ jobs:
           path: bandit-report.json
 
   image_scan:
-    name: Build Image and Run Image Scan
+    name: Build Image and Run Docker Scout Scan
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Set up Docker
         uses: docker-practice/actions-setup-docker@v1
         with:
           docker_version: '28.1.1'
-    
+
       - name: Build Docker Image
         run: docker build -f Dockerfile -t myapp:latest .
-    
-      - name: Docker Scout Scan
+
+      - name: Install and Run Docker Scout
         run: |
           curl -fsSl https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
           sh install-scout.sh
